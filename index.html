@@ -8,6 +8,15 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
+.game-controls {
+  position: fixed; /* ลอยอิสระ ไม่ขึ้นกับ container */
+  top: 15px;
+  right: 15px;
+  display: flex;
+  gap: 10px;
+  z-index: 2000;
+}
+
         * {
             margin: 0;
             padding: 0;
@@ -810,6 +819,10 @@
     </style>
 </head>
 <body>
+   <div class="game-controls">
+                <button class="show-log-btn" id="showLogBtn">📋 ดู Log</button>
+                <button class="end-game-btn" id="endGameBtn">🏁 จบเกม</button>
+            </div>
     <div class="container">
         <!-- Setup Screen -->
         <div class="setup-screen active">
@@ -855,10 +868,7 @@
         <!-- Game Screen -->
         <div class="game-screen">
             <h1>🧀 Cheese Thief 🐭</h1>
-            <div class="game-controls">
-                <button class="show-log-btn" id="showLogBtn">📋 ดู Log</button>
-                <button class="end-game-btn" id="endGameBtn">🏁 จบเกม</button>
-            </div>
+        
             <div class="game-log" id="gameLog">
                 <h3>📋 บันทึกเหตุการณ์</h3>
                 <div id="logEntries"></div>
