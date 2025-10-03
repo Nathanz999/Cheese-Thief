@@ -113,6 +113,21 @@
             max-height: 300px;
             overflow-y: auto;
             margin-bottom: 20px;
+            padding-right: 5px;
+        }
+        
+        .player-inputs::-webkit-scrollbar {
+            width: 8px;
+        }
+        
+        .player-inputs::-webkit-scrollbar-track {
+            background: #f1f1f1;
+            border-radius: 10px;
+        }
+        
+        .player-inputs::-webkit-scrollbar-thumb {
+            background: #667eea;
+            border-radius: 10px;
         }
         
         .player-input {
@@ -280,6 +295,41 @@
             font-weight: 400;
         }
         
+        .game-controls {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 30px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        
+        .end-game-btn, .show-log-btn {
+            width: auto;
+            padding: 14px 28px;
+            font-size: 16px;
+            font-weight: 600;
+            flex: 1;
+            min-width: 140px;
+        }
+        
+        .end-game-btn {
+            background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%);
+            box-shadow: 0 6px 20px rgba(231, 76, 60, 0.4);
+        }
+        
+        .end-game-btn:hover {
+            box-shadow: 0 8px 25px rgba(231, 76, 60, 0.6);
+        }
+        
+        .show-log-btn {
+            background: linear-gradient(135deg, #f39c12 0%, #e67e22 100%);
+            box-shadow: 0 6px 20px rgba(243, 156, 18, 0.4);
+        }
+        
+        .show-log-btn:hover {
+            box-shadow: 0 8px 25px rgba(243, 156, 18, 0.6);
+        }
+        
         .cheese-display {
             text-align: center;
             margin: 50px 0;
@@ -319,33 +369,100 @@
             font-weight: bold;
             margin-top: 30px;
             display: none;
+            animation: shake 0.5s;
+        }
+        
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            10%, 30%, 50%, 70%, 90% { transform: translateX(-10px); }
+            20%, 40%, 60%, 80% { transform: translateX(10px); }
         }
         
         .message.show {
             display: block;
         }
         
-        .end-game-btn {
-            position: absolute;
-            top: -80px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: auto;
-            padding: 14px 28px;
-            background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%);
-            font-size: 16px;
-            font-weight: 600;
-            z-index: 1000;
-            box-shadow: 0 6px 20px rgba(231, 76, 60, 0.4);
+        .game-log {
+            display: none;
+            background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
+            padding: 30px;
+            border-radius: 20px;
+            margin-bottom: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            max-height: 400px;
+            overflow-y: auto;
         }
         
-        .end-game-btn:hover {
-            box-shadow: 0 8px 25px rgba(231, 76, 60, 0.6);
-            transform: translateX(-50%) translateY(-2px);
+        .game-log::-webkit-scrollbar {
+            width: 10px;
         }
         
-        .end-game-btn:active {
-            transform: translateX(-50%) translateY(0);
+        .game-log::-webkit-scrollbar-track {
+            background: rgba(255,255,255,0.1);
+            border-radius: 10px;
+        }
+        
+        .game-log::-webkit-scrollbar-thumb {
+            background: rgba(255,255,255,0.3);
+            border-radius: 10px;
+        }
+        
+        .game-log::-webkit-scrollbar-thumb:hover {
+            background: rgba(255,255,255,0.5);
+        }
+        
+        .game-log.show {
+            display: block;
+            animation: fadeIn 0.5s;
+        }
+        
+        .game-log h3 {
+            color: #ecf0f1;
+            margin-bottom: 20px;
+            text-align: center;
+            font-size: 24px;
+        }
+        
+        .log-entry {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 15px 20px;
+            margin-bottom: 10px;
+            border-radius: 12px;
+            border-left: 4px solid #3498db;
+            color: #ecf0f1;
+            transition: all 0.3s ease;
+            animation: slideIn 0.4s ease-out backwards;
+            line-height: 1.6;
+        }
+        
+        .log-entry:hover {
+            background: rgba(255, 255, 255, 0.15);
+            transform: translateX(5px);
+        }
+        
+        .log-entry strong {
+            color: #f39c12;
+        }
+        
+        .log-entry .role-good {
+            color: #2ecc71;
+            font-weight: bold;
+        }
+        
+        .log-entry .role-bad {
+            color: #e74c3c;
+            font-weight: bold;
+        }
+        
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateX(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
         }
         
         .restart-btn {
@@ -371,17 +488,6 @@
             box-shadow: 0 4px 15px rgba(0,0,0,0.08);
             transition: all 0.3s ease;
             animation: slideIn 0.4s ease-out backwards;
-        }
-        
-        @keyframes slideIn {
-            from {
-                opacity: 0;
-                transform: translateX(-20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateX(0);
-            }
         }
         
         .player-result:hover {
@@ -437,6 +543,270 @@
             font-size: 14px;
             box-shadow: 0 2px 8px rgba(0,0,0,0.15);
         }
+        
+        /* Media Queries for Responsive Design */
+        
+        /* Mobile Phones (Portrait) */
+        @media only screen and (max-width: 480px) {
+            body {
+                padding: 10px;
+            }
+            
+            .container {
+                padding: 25px 20px;
+                border-radius: 20px;
+            }
+            
+            h1 {
+                font-size: 2em;
+                margin-bottom: 25px;
+            }
+            
+            .reveal-container {
+                padding: 30px 20px;
+            }
+            
+            .reveal-container h2 {
+                font-size: 24px;
+            }
+            
+            input, select {
+                padding: 12px 14px;
+                font-size: 14px;
+            }
+            
+            button {
+                padding: 14px;
+                font-size: 16px;
+            }
+            
+            .game-controls {
+                flex-direction: column;
+                gap: 10px;
+            }
+            
+            .end-game-btn, .show-log-btn {
+                width: 100%;
+                padding: 12px 20px;
+                font-size: 15px;
+                min-width: auto;
+            }
+            
+            .cheese-display {
+                margin: 30px 0;
+            }
+            
+            .cheese {
+                font-size: 100px;
+            }
+            
+            .role-display {
+                font-size: 42px;
+                margin: 20px 0;
+            }
+            
+            .time-display {
+                font-size: 32px;
+                margin: 20px 0;
+            }
+            
+            .message {
+                font-size: 18px;
+            }
+            
+            .player-result {
+                padding: 15px;
+                font-size: 14px;
+            }
+            
+            .role-badge, .time-badge {
+                display: block;
+                margin: 8px 0 0 0;
+                text-align: center;
+            }
+            
+            .shuffle-animation {
+                font-size: 60px;
+            }
+            
+            .shuffling {
+                padding: 40px 20px;
+            }
+            
+            .reveal-info {
+                padding: 30px 20px;
+            }
+            
+            .game-log {
+                padding: 20px;
+                max-height: 300px;
+                margin-bottom: 20px;
+            }
+            
+            .game-log h3 {
+                font-size: 20px;
+            }
+            
+            .log-entry {
+                padding: 12px 15px;
+                font-size: 14px;
+            }
+            
+            .player-inputs {
+                max-height: 250px;
+            }
+        }
+        
+        /* Mobile Phones (Landscape) & Small Tablets */
+        @media only screen and (min-width: 481px) and (max-width: 768px) {
+            .container {
+                padding: 35px;
+            }
+            
+            h1 {
+                font-size: 2.3em;
+            }
+            
+            .reveal-container h2 {
+                font-size: 28px;
+            }
+            
+            .cheese {
+                font-size: 120px;
+            }
+            
+            .role-display {
+                font-size: 48px;
+            }
+            
+            .time-display {
+                font-size: 36px;
+            }
+            
+            .game-controls {
+                gap: 12px;
+            }
+            
+            .end-game-btn, .show-log-btn {
+                padding: 13px 24px;
+                font-size: 15px;
+            }
+            
+            .shuffle-animation {
+                font-size: 70px;
+            }
+            
+            .game-log {
+                padding: 25px;
+            }
+        }
+        
+        /* Tablets */
+        @media only screen and (min-width: 769px) and (max-width: 1024px) {
+            .container {
+                padding: 45px;
+                max-width: 600px;
+            }
+            
+            h1 {
+                font-size: 2.5em;
+            }
+            
+            .cheese {
+                font-size: 140px;
+            }
+            
+            .role-display {
+                font-size: 52px;
+            }
+            
+            .time-display {
+                font-size: 38px;
+            }
+        }
+        
+        /* Large Screens */
+        @media only screen and (min-width: 1025px) {
+            .container {
+                max-width: 700px;
+            }
+        }
+        
+        /* Landscape orientation adjustments */
+        @media only screen and (max-height: 600px) and (orientation: landscape) {
+            .container {
+                padding: 20px 30px;
+                margin: 10px auto;
+            }
+            
+            h1 {
+                font-size: 1.8em;
+                margin-bottom: 15px;
+            }
+            
+            .cheese-display {
+                margin: 20px 0;
+            }
+            
+            .cheese {
+                font-size: 80px;
+            }
+            
+            .role-display {
+                font-size: 36px;
+                margin: 15px 0;
+            }
+            
+            .time-display {
+                font-size: 28px;
+                margin: 15px 0;
+            }
+            
+            .game-log {
+                max-height: 250px;
+                margin-bottom: 20px;
+            }
+            
+            .shuffling {
+                padding: 30px 20px;
+            }
+            
+            .shuffle-animation {
+                font-size: 50px;
+                margin: 10px 0;
+            }
+            
+            .reveal-info {
+                padding: 25px;
+            }
+            
+            .reveal-container {
+                padding: 20px;
+            }
+        }
+        
+        /* Very small screens */
+        @media only screen and (max-width: 360px) {
+            .container {
+                padding: 20px 15px;
+            }
+            
+            h1 {
+                font-size: 1.8em;
+            }
+            
+            .cheese {
+                font-size: 80px;
+            }
+            
+            .role-display {
+                font-size: 36px;
+            }
+            
+            .time-display {
+                font-size: 28px;
+            }
+        }
     </style>
 </head>
 <body>
@@ -474,7 +844,7 @@
                 <div class="reveal-info" id="revealInfo">
                     <div class="role-display" id="roleDisplay">🐭 หนูดี</div>
                     <div class="time-display" id="timeDisplay">⏰ 03:00</div>
-                    <p style="color: #e74c3c; font-weight: bold; margin-top: 20px;">
+                    <p style="color: #e74c3c; font-weight: bold; margin-top: 20px; font-size: 15px;">
                         จำบทบาทและเวลาของคุณให้ดี แล้วส่งต่อให้คนถัดไป
                     </p>
                     <button id="nextBtn">ถัดไป</button>
@@ -485,15 +855,22 @@
         <!-- Game Screen -->
         <div class="game-screen">
             <h1>🧀 Cheese Thief 🐭</h1>
-            <button class="end-game-btn" id="endGameBtn">จบเกม</button>
+            <div class="game-controls">
+                <button class="show-log-btn" id="showLogBtn">📋 ดู Log</button>
+                <button class="end-game-btn" id="endGameBtn">🏁 จบเกม</button>
+            </div>
+            <div class="game-log" id="gameLog">
+                <h3>📋 บันทึกเหตุการณ์</h3>
+                <div id="logEntries"></div>
+            </div>
             <div class="cheese-display">
                 <div class="cheese" id="cheese">🧀</div>
             </div>
             <div class="message" id="message">ชีสหายไปแล้ว! 😱</div>
             <div class="results" id="results" style="display:none;">
-                <h2 style="text-align:center; margin-bottom:20px;">สรุปบทบาท</h2>
+                <h2 style="text-align:center; margin-bottom:20px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">สรุปบทบาท</h2>
                 <div id="playerRoles"></div>
-                <button class="restart-btn" id="restartBtn">เริ่มเกมใหม่</button>
+                <button class="restart-btn" id="restartBtn">🔄 เริ่มเกมใหม่</button>
             </div>
         </div>
     </div>
@@ -521,6 +898,9 @@
         const cheese = document.getElementById('cheese');
         const message = document.getElementById('message');
         const endGameBtn = document.getElementById('endGameBtn');
+        const showLogBtn = document.getElementById('showLogBtn');
+        const gameLog = document.getElementById('gameLog');
+        const logEntries = document.getElementById('logEntries');
         const results = document.getElementById('results');
         const playerRoles = document.getElementById('playerRoles');
         const restartBtn = document.getElementById('restartBtn');
@@ -648,7 +1028,32 @@
                 // All players revealed, go to game
                 revealScreen.classList.remove('active');
                 gameScreen.classList.add('active');
+                generateGameLog();
             }
+        });
+        
+        // Generate game log
+        function generateGameLog() {
+            logEntries.innerHTML = '';
+            players.forEach((player, index) => {
+                const role = roles[index];
+                const time = times[index];
+                const div = document.createElement('div');
+                div.className = 'log-entry';
+                div.style.animationDelay = `${index * 0.1}s`;
+                div.innerHTML = `
+                    <strong>${player}</strong> ได้รับบทบาท 
+                    <span class="${role === 'หนูดี' ? 'role-good' : 'role-bad'}">${role}</span> 
+                    และเวลา <strong>⏰ ${time}</strong>
+                `;
+                logEntries.appendChild(div);
+            });
+        }
+        
+        // Show/Hide log
+        showLogBtn.addEventListener('click', function() {
+            gameLog.classList.toggle('show');
+            showLogBtn.textContent = gameLog.classList.contains('show') ? '✖️ ปิด Log' : '📋 ดู Log';
         });
         
         // Steal cheese
@@ -664,6 +1069,8 @@
         endGameBtn.addEventListener('click', function() {
             cheese.style.display = 'none';
             message.style.display = 'none';
+            gameLog.style.display = 'none';
+            showLogBtn.style.display = 'none';
             results.style.display = 'block';
             
             playerRoles.innerHTML = '';
